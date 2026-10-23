@@ -1,0 +1,5 @@
+Options -Indexes
+
+<FilesMatch "^(config\.php|config\.example\.php|db\.php|ws-auth\.php)$">
+    Require all denied
+</FilesMatch>

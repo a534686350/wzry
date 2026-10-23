@@ -1,0 +1,35 @@
+# 宝塔 Nginx 站点配置片段。
+# 在「网站 -> 站点设置 -> 配置文件」的 server { ... } 内追加；
+# 将 php-cgi-82.sock 改成本站实际 PHP-FPM 套接字。
+
+# 部署工具、SQL、运行时锁文件不允许从公网下载。
+location ^~ /database/ { return 404; }
+location ^~ /scripts/  { return 404; }
+location ^~ /storage/  { return 404; }
+location = /api/config.php         { return 404; }
+location = /api/config.example.php { return 404; }
+location = /api/db.php             { return 404; }
+
+# 仅 Nginx auth_request 子请求可调用；外部请求一律不可访问。
+location = /api/ws-auth.php {
+    internal;
+    include fastcgi_params;
+    fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+    fastcgi_pass unix:/tmp/php-cgi-82.sock;
+}
+
+# WebSocket 入口：先校验登录 Cookie，再转发到只对本机开放的 Java :8888 服务。
+location /ws {
+    auth_request /api/ws-auth.php;
+
+    proxy_pass http://127.0.0.1:8888;
+    proxy_http_version 1.1;
+    proxy_set_header Upgrade $http_upgrade;
+    proxy_set_header Connection "upgrade";
+    proxy_set_header Host $host;
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_read_timeout 3600s;
+    proxy_send_timeout 3600s;
+    proxy_buffering off;
+}

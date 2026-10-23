@@ -1,0 +1,11 @@
+Options -Indexes
+
+<FilesMatch "^(\.user\.ini|\.env|composer\.(json|lock)|package(-lock)?\.json)$">
+    Require all denied
+</FilesMatch>
+
+<FilesMatch "^(config\.php|config\.example\.php|db\.php)$">
+    Require all denied
+</FilesMatch>
+
+RedirectMatch 404 ^/(database|scripts|storage)/

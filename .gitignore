@@ -1,2 +1,21 @@
-# 忽略包含服务器IP的敏感配置文件
+# 运行时数据（首次启动自动生成）
+config.json
+data/*.json
+data/samples/
+data/hero/
+data/skin/
+!data/*.example
+
+# 敏感配置
 .user.ini
+api/config.php
+!api/config.example.php
+
+# 编译/临时
+__pycache__/
+*.py[cod]
+*.log
+*.bak
+*.keep-*
+.DS_Store
+Thumbs.db
